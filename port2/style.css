@@ -136,7 +136,7 @@ nav {
     .hero-image-container {
         width: 100%; /* Full width on mobile */
         opacity: 0.4; /* Dimmer on mobile so text is readable */
-        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 100%, black 20%);
     }
     .hero h1 { font-size: 14vw; }
 }
@@ -486,4 +486,22 @@ nav {
     .nav-links-list {
         gap: 20px;
     }
+}
+
+/* Find this section in your style.css and update the background */
+.card {
+    border: 1px solid #333; 
+    padding: 40px; 
+    transition: 0.3s; 
+    /* Changed from 0.02 to 0.08 for better visibility */
+    background: rgba(255, 255, 255, 0.08); 
+    /* Optional: Add a backdrop blur for a glass effect */
+    backdrop-filter: blur(10px);
+}
+
+/* FORCE VISIBILITY FIX */
+.card, .project-item {
+    opacity: 1 !important; /* Overrides the JS hiding them */
+    transform: none !important; /* Resets any stuck movement */
+    visibility: visible !important;
 }
