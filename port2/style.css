@@ -1,0 +1,489 @@
+:root {
+    --neon: #ccff00;
+    --dark: #0a0a0a;
+    --gray: #1a1a1a;
+    --text: #ffffff;
+    --text-dim: #888888;
+    --font-head: 'Syncopate', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; cursor: none; } /* Custom cursor logic */
+
+body {
+    background-color: var(--dark);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+}
+
+/* --- NOISE OVERLAY --- */
+.noise {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://grainy-gradients.vercel.app/noise.svg');
+    opacity: 0.05; pointer-events: none; z-index: 999;
+}
+
+/* --- CUSTOM CURSOR --- */
+.cursor-dot, .cursor-outline {
+    position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+    border-radius: 50%; pointer-events: none; z-index: 9999;
+}
+.cursor-dot { width: 8px; height: 8px; background: var(--neon); }
+.cursor-outline {
+    width: 40px; height: 40px; border: 1px solid var(--neon);
+    transition: width 0.2s, height 0.2s;
+}
+
+/* --- NAV --- */
+nav {
+    display: flex; justify-content: space-between; padding: 30px 50px;
+    position: fixed; width: 100%; top: 0; z-index: 100; mix-blend-mode: difference;
+}
+.logo { font-family: var(--font-head); font-weight: 700; font-size: 1.2rem; letter-spacing: 2px; }
+.logo span { color: var(--neon); }
+
+/* --- HERO SECTION REVAAMP --- */
+.hero {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: flex-start; /* Align text to left */
+    padding: 0 5vw;
+    overflow: hidden;
+    /* Add a subtle cyber grid background */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+/* The Huge Background Image */
+.hero-image-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vw; /* Covers 60% of the screen width */
+    height: 100%;
+    z-index: 1; /* Behind text but above background */
+    
+    /* Create a fade effect so it blends into the black on the left */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+    mask-image: linear-gradient(to right, transparent 0%, black 30%);
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    filter: grayscale(100%) contrast(1.1) brightness(0.8); /* Moody cyber look */
+}
+
+/* The Text Content */
+.hero-content {
+    position: relative;
+    z-index: 2; /* Sits on top of the image */
+    max-width: 80vw;
+}
+
+.tagline {
+    font-family: var(--font-head);
+    color: var(--neon);
+    font-size: 1rem;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    background: rgba(0,0,0,0.6); /* Readability backing */
+    display: inline-block;
+    padding: 5px 10px;
+    backdrop-filter: blur(5px);
+}
+
+.hero h1 {
+    font-family: var(--font-head);
+    font-size: 9vw; /* Massive text */
+    line-height: 0.85;
+    text-transform: uppercase;
+    color: white;
+    mix-blend-mode: overlay; /* This makes the text look "embedded" in the image */
+}
+
+/* The outline text styling */
+.outline {
+    -webkit-text-stroke: 2px white; /* Thicker stroke */
+    color: transparent !important;
+    mix-blend-mode: normal; /* Outline stays sharp */
+}
+
+/* Bottom details */
+.hero-footer {
+    position: absolute;
+    bottom: 40px;
+    left: 5vw;
+    right: 5vw;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+    font-family: var(--font-head);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-image-container {
+        width: 100%; /* Full width on mobile */
+        opacity: 0.4; /* Dimmer on mobile so text is readable */
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
+    }
+    .hero h1 { font-size: 14vw; }
+}
+
+/* --- MARQUEE --- */
+.marquee-section {
+    padding: 40px 0; background: var(--neon); color: var(--dark);
+    font-family: var(--font-head); font-weight: 700; font-size: 3vw; white-space: nowrap; overflow: hidden;
+}
+.marquee-content { display: inline-block; padding-left: 100%; animation: scroll 20s linear infinite; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+/* --- CREDENTIALS (BENTO GRID) --- */
+.credentials { padding: 100px 50px; }
+.section-header { border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 50px; }
+.section-header h2 { font-family: var(--font-head); font-size: 1.5rem; color: var(--text-dim); }
+
+.bento-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.card {
+    border: 1px solid #333; padding: 40px; transition: 0.3s; background: rgba(255,255,255,0.02);
+}
+.card:hover { border-color: var(--neon); background: rgba(204, 255, 0, 0.05); }
+.card h3 { color: var(--neon); font-family: var(--font-head); margin-bottom: 20px; font-size: 1rem; }
+.bio-card { grid-column: span 2; }
+
+.list-spec li {
+    display: flex; justify-content: space-between; border-bottom: 1px solid #333; padding: 15px 0;
+}
+.list-spec .year { color: var(--text-dim); font-family: var(--font-head); }
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+.tag {
+    border: 1px solid #333; padding: 8px 15px; border-radius: 50px; font-size: 0.8rem; text-transform: uppercase;
+}
+.tag:hover { background: var(--neon); color: var(--dark); border-color: var(--neon); }
+
+/* --- PROJECTS LIST --- */
+.projects { padding: 50px; }
+.project-item {
+    display: flex; align-items: center; border-top: 1px solid #333; padding: 60px 0; transition: 0.3s;
+}
+.project-item:hover { padding-left: 20px; background: rgba(255,255,255,0.02); }
+.p-num { color: var(--neon); font-family: var(--font-head); font-size: 1.5rem; margin-right: 50px; }
+.p-details { flex-grow: 1; }
+.p-details h3 { font-size: 2.5rem; font-family: var(--font-head); margin-bottom: 10px; }
+.p-tech { color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+.p-link a { color: var(--text); font-family: var(--font-head); font-size: 0.9rem; text-decoration: none; border: 1px solid #333; padding: 10px 20px; border-radius: 50px; }
+.p-link a:hover { background: var(--text); color: var(--dark); }
+
+/* --- CONTACT --- */
+.contact { height: 90vh; display: flex; align-items: center; padding: 50px; background: #080808; }
+.email-link a {
+    font-size: 6vw; font-family: var(--font-head); color: var(--text); text-decoration: none; line-height: 1;
+    display: block; margin: 40px 0; transition: 0.3s;
+}
+.email-link a:hover { color: var(--neon); -webkit-text-stroke: 0px; }
+.footer-grid { display: flex; gap: 100px; margin-top: 50px; }
+.footer-grid h4 { color: var(--text-dim); margin-bottom: 15px; font-family: var(--font-head); }
+.footer-grid a { color: var(--text); text-decoration: none; display: block; margin-bottom: 5px; }
+.footer-grid a:hover { color: var(--neon); }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 12vw; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .project-item { flex-direction: column; align-items: flex-start; }
+    .p-num { margin-bottom: 20px; }
+    .p-details h3 { font-size: 1.5rem; }
+    .footer-grid { flex-direction: column; gap: 30px; }
+    .email-link a { font-size: 10vw; }
+}
+
+/* --- INTERACTIVE CARD DECK --- */
+.project-deck-section {
+    padding: 100px 0;
+    overflow: hidden; /* Prevents scrollbar when cards pop out */
+    text-align: center;
+}
+
+.center-text { text-align: center; margin-bottom: 60px; }
+.center-text h2 { font-size: 3rem; font-family: var(--font-head); color: white; }
+
+.deck-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    position: relative;
+    perspective: 1000px; /* Essential for 3D flip effect */
+}
+
+/* Base Card Style */
+.card-item {
+    width: 280px;
+    height: 420px;
+    position: relative;
+    /* Negative margin creates the overlap */
+    margin-left: -120px; 
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    z-index: 1;
+}
+
+/* Fix first card margin */
+.card-item:first-child { margin-left: 0; }
+
+/* THE FAN EFFECT (Initial State) */
+/* Rotate cards to look like they are held in a hand */
+.card-item:nth-child(1) { transform: translateY(40px) rotate(-15deg); }
+.card-item:nth-child(2) { transform: translateY(10px) rotate(-7deg); }
+.card-item:nth-child(3) { transform: translateY(0px) rotate(0deg); z-index: 2; } /* Center card */
+.card-item:nth-child(4) { transform: translateY(10px) rotate(7deg); }
+.card-item:nth-child(5) { transform: translateY(40px) rotate(15deg); }
+
+/* HOVER INTERACTION (The "Pop") */
+.card-item:hover {
+    /* Straighten, scale up, and lift */
+    transform: translateY(-50px) rotate(0deg) scale(1.1);
+    z-index: 100; /* Bring to absolute front */
+    margin: 0 20px; /* Push neighbors away slightly */
+}
+
+/* Hovering the container makes non-hovered cards dim (optional focus effect) */
+.deck-container:hover .card-item:not(:hover) {
+    filter: blur(2px) brightness(0.7);
+    opacity: 0.8;
+}
+
+/* --- FLIP & CONTENT STYLING --- */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    border-radius: 20px;
+}
+
+/* Flip Logic: Un-comment this if you want them to actually flip over on click/hover 
+   For now, we just do a visual pop-up because flipping overlapping cards can be buggy.
+*/
+/* .card-item:hover .card-inner { transform: rotateY(180deg); } */
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Front Design */
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, black 20%, transparent);
+    padding: 20px;
+    text-align: left;
+}
+.card-content h3 { font-family: var(--font-head); color: var(--neon); font-size: 1.2rem; }
+.card-content p { font-size: 0.8rem; color: #ccc; }
+
+/* Back Design (Hidden by default, used if you enable flipping) */
+.card-back {
+    background: #111;
+    transform: rotateY(180deg); /* Faces backwards */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.card-back h3 { color: var(--neon); margin-bottom: 10px; }
+.btn-sm {
+    border: 1px solid var(--neon);
+    color: var(--neon);
+    padding: 8px 15px;
+    margin-top: 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+.btn-sm:hover { background: var(--neon); color: black; }
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    .deck-container {
+        flex-direction: column;
+        height: auto;
+        gap: 30px;
+        padding-bottom: 50px;
+    }
+    
+    .card-item {
+        margin-left: 0; /* Remove negative margin on mobile */
+        transform: none !important; /* Remove rotation on mobile */
+        width: 90%; /* Full width cards */
+        height: 300px; /* Shorter cards */
+    }
+    
+    .card-item:hover {
+        transform: scale(1.05) !important;
+        margin: 0; /* Don't push margins on mobile */
+    }
+}
+
+/* --- BURGER / FULLSCREEN MENU --- */
+
+
+
+
+
+/* The Button itself */
+.menu-btn {
+    font-family: var(--font-head);
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 200; /* Above the overlay */
+    mix-blend-mode: difference; /* Ensures it's visible on black or white */
+    transition: color 0.3s;
+}
+.menu-btn:hover { color: var(--neon); }
+
+/* The Full Screen Container */
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #0a0a0a;
+    z-index: 150;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Hidden state using clip-path (circle shrinks to nothing) */
+    clip-path: circle(0% at 100% 0%);
+    transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+/* The Active State (JS adds this class) */
+.nav-overlay.active {
+    clip-path: circle(150% at 100% 0%); /* Expands to cover screen */
+}
+
+/* Menu Links Styling */
+.nav-links-list {
+    list-style: none;
+    text-align: center;
+}
+
+.nav-item {
+    overflow: hidden; /* For text reveal animation */
+    margin: 20px 0;
+}
+
+.nav-link {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 8vw; /* Massive text */
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s;
+    transform: translateY(100%); /* Start pushed down */
+    opacity: 0;
+}
+
+/* Hover Effect for Links */
+.nav-link:hover {
+    color: var(--neon);
+    -webkit-text-stroke: 1px var(--neon);
+}
+
+/* Footer in menu */
+.nav-footer {
+    position: absolute;
+    bottom: 40px;
+    font-family: var(--font-head);
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .nav-link { font-size: 12vw; } /* Smaller on mobile but still big */
+}
+
+
+/* --- UPDATED MENU LINKS (Medium Size) --- */
+.nav-links-list {
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px; /* Adds space between links */
+}
+
+.nav-item {
+    overflow: hidden; /* Keeps the reveal animation clean */
+}
+
+.nav-link {
+    display: inline-block;
+    font-family: var(--font-head);
+    /* CHANGED: Smaller, cleaner size */
+    font-size: 3.5rem; 
+    line-height: 1.2;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-dim); /* Thinner stroke for elegance */
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    
+    /* Animation start state */
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+/* Hover Effect */
+.nav-link:hover {
+    color: var(--neon);
+    -webkit-text-stroke: 0px; /* Solid color on hover */
+    letter-spacing: 2px; /* Slight expansion effect */
+}
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+    .nav-link { 
+        font-size: 2rem; /* Much smaller on mobile to fit screen */
+    }
+    .nav-links-list {
+        gap: 20px;
+    }
+}
