@@ -281,7 +281,7 @@ nav {
 /* Flip Logic: Un-comment this if you want them to actually flip over on click/hover 
    For now, we just do a visual pop-up because flipping overlapping cards can be buggy.
 */
-/* .card-item:hover .card-inner { transform: rotateY(180deg); } */
+
 
 .card-front, .card-back {
     position: absolute;
@@ -505,3 +505,4 @@ nav {
     transform: none !important; /* Resets any stuck movement */
     visibility: visible !important;
 }
+
